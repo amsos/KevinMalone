@@ -1,3 +1,4 @@
+from pydoc import describe
 import constants
 from distutils.util import strtobool
 import logging
@@ -168,6 +169,32 @@ async def update(ctx):
 
 
 if bool(strtobool(constants.Bot.is_dev)):
+
+    @bot.slash_command(
+        guild_id=GUILD_IDS, description="See how mmany points you have",
+    )
+    async def check_points(ctx):
+        is_guild = bool(ctx.guild)
+        if is_guild:
+            await ctx.respond("Please run this command in a DM channel", ephemeral=True)
+            return
+            #@keating should we create a function for ttelling user to run functtion in a dm?
+        else:
+            embed = discord.Embed(
+                colour=INFO_EMBED_COLOR,
+                title="Points",
+                description="Which community would you like to see your points for?",
+            )
+            error_embed = discord.Embed(
+                colour=INFO_EMBED_COLOR,
+                description="I can't tell you your points since you haven't been onboarded for any communities. Run /join in the "
+                "discord you want to join!",
+            )
+    #Made initial outline of command.  Haven't started the thread builder yet.  Also we need to confirm how we're retrieving the point total.
+    #Started looking at the thread builders for join and update to understand best way to build this feature.
+            
+
+
 
     @bot.slash_command(
         guild_id=GUILD_IDS, description="Add first contributions to the guild"
